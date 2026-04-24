@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: transparent; /* Зливається з фоном Sutra */
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+        .quote-card {
+            background: #FFF9F2; /* Колір як на вашому скріншоті */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            text-align: center;
+            max-width: 500px;
+            width: 85%;
+            border: 1px solid #EEDDC8;
+        }
+        #quote-text {
+            font-size: 1.1rem;
+            color: #4A3F35; /* Темно-коричневий текст */
+            line-height: 1.6;
+            font-style: italic;
+            margin: 0;
+        }
+        .icon {
+            font-size: 24px;
+            margin-bottom: 15px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quote-card">
+    <span class="icon">✨</span>
+    <p id="quote-text">Loading daily inspiration...</p>
+</div>
+
+<script>
+    const citations = [
+        "We need to generate compassion for all beings. Just for the fact that they are alive and feel joy and sorrow, they are adequate objects of compassion.",
+        "Unconditional love is a spontaneous response of the heart, rooted in the understanding that every being strives for happiness and well-being, but wants to avoid suffering.",
+        "Our meditation practice should first of all support us to develop more positive responses to the challenges we face in everyday life.",
+        "Dharma practice does not mean doing something radically new, but merely to combine our ordinary everyday activities with a clearer, more conscious and more positive attitude.",
+        "The contemplation of impermanence shows us that suffering can be transformed into happiness, and that we must begin this transformation immediately. Only in this way does it make sense to think about impermanence.",
+        "If we have the confidence and courage to face patiently whatever happens in our life, a lot of problems will dissappear quite naturally.",
+        "The more positive and warm-hearted we feel, the closer we are to our true nature.",
+        "The Tibetan word for nirvana literally means 'passing beyond sorrow'. Passing beyond sorrow is this: when we practice the view of emptiness, our mind reaches the state of freedom from concepts.",
+        "There is a famous story of three blind people touching an elephant: One touches its trunk and says: 'An elephant is very soft, round and long, like a hose'. Another touches the belly and says: 'An elephant is very big, like a balloon'. Another touches the tail: 'An elephant is thin, like rope.' As each of them explores just one physical part of the animal, their impressions on which they base their judgements are quite different. But none of them is able to grasp the elephant entirely, as they lack a complete understanding of its body, let alone its character, movement, likes and dislikes.",
+        "Happiness and well-being are based on wisdom, whilst suffering and dis-ease are based on ignorance and especially on self-grasping.",
+        "Whether we want to admit it or not, we all live in a web of multiple connections. When understanding this togetherness, we discover the reason why we should encounter others with kindness and understanding.",
+        "In short, three things are needed to take care of animals. The first one is to treat animals with loving kindness. Secondly, we need to develop an understanding for them. And finally, we need to take on the responsibility for them.",
+        "What we should be most afraid of is to become the victim of fear and to act without compassion and love towards others. Then we are in danger of losing our humanity."
+    ];
+
+    function updateQuote() {
+        const now = new Date();
+        const start = new Date(now.getFullYear(), 0, 0);
+        const diff = now - start;
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+        
+        // Використовуємо залишок від ділення, щоб цитати ходили по колу
+        const index = dayOfYear % citations.length;
+        document.getElementById('quote-text').innerText = citations[index];
+    }
+
+    updateQuote();
+</script>
+</body>
+</html>
