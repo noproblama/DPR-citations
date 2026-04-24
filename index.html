@@ -34,10 +34,30 @@
             font-style: italic;
             max-width: 80%; /* Щоб текст не впирався в краї */
         }
+        
         .icon {
             font-size: 24px;
             margin-bottom: 15px;
             display: block;
+        }
+
+        .next-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 0.75rem;
+            color: #4A3F35;
+            opacity: 0.4; /* Робимо її ледь помітною */
+            cursor: pointer;
+            text-decoration: underline;
+            transition: opacity 0.3s;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+        
+        .next-btn:hover {
+            opacity: 0.9; /* Проявляється при наведенні */
         }
     </style>
 </head>
@@ -48,7 +68,7 @@
     <p id="quote-text">Loading daily inspiration...</p>
     <small>— Dolpo Tulku Rinpoche</small>
 </div>
-
+<button class="next-btn" onclick="getNextQuote()">Next inspiration →</button>
 <script>
     const citations = [
         "We need to generate compassion for all beings. Just for the fact that they are alive and feel joy and sorrow, they are adequate objects of compassion.",
@@ -66,6 +86,8 @@
         "What we should be most afraid of is to become the victim of fear and to act without compassion and love towards others. Then we are in danger of losing our humanity."
     ];
 
+    let currentIndex = 0;
+    
     function updateQuote() {
         const now = new Date();
         const start = new Date(now.getFullYear(), 0, 0);
@@ -73,12 +95,23 @@
         const oneDay = 1000 * 60 * 60 * 24;
         const dayOfYear = Math.floor(diff / oneDay);
         
-        // Використовуємо залишок від ділення, щоб цитати ходили по колу
-        const index = dayOfYear % citations.length;
-        document.getElementById('quote-text').innerText = citations[index];
+        currentIndex = dayOfYear % citations.length;
+        renderQuote();
     }
-
+    
+    // Окрема функція для відображення, щоб викликати її при кліку
+    function renderQuote() {
+        document.getElementById('quote-text').innerText = citations[currentIndex];
+    }
+    
+    // Функція для кнопки "Next"
+    function getNextQuote() {
+        currentIndex = (currentIndex + 1) % citations.length;
+        renderQuote();
+    }
+    
     updateQuote();
+
 </script>
 </body>
 </html>
