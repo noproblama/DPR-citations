@@ -19,7 +19,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
             box-sizing: border-box;
@@ -66,7 +66,7 @@
 
         @media (max-width: 600px) {
             #quote-text {
-                font-size: 16px;
+                font-size: 14px;
                 max-width: 100%;
                 line-height: 1.1;
                 margin: 0;
@@ -89,7 +89,7 @@
     <span class="icon">✨</span>
     <p id="quote-text">Loading...</p>
     <div class="author">— Dolpo Tulku Rinpoche</div>
-    <button class="next-btn" onclick="getNextQuote()">Next inspiration →</button>
+    <!-- <button class="next-btn" onclick="getNextQuote()">Next inspiration →</button> -->
 </div>
 
 <script>
