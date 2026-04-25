@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             background-color: #FEF9ED !important; 
             font-family: Lato, sans-serif;
+            overflow: hidden; /* Прибирає подвійну прокрутку */
         }
         
         .quote-card {
-            /* Прибираємо фіксовану ширину, щоб картка заповнила весь простір iframe */
-            width: 100vw;
+            width: 100%;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,41 +23,59 @@
             align-items: center;
             text-align: center;
             box-sizing: border-box;
-            padding: 20px;
-            background-color: #FEF9ED; /* Той самий колір */
+            padding: 30px 20px;
+            position: relative;
         }
         
         #quote-text {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #4A3F35;
-            line-height: 1.6;
+            line-height: 1.5;
             font-style: italic;
-            max-width: 80%; /* Щоб текст не впирався в краї */
+            max-width: 90%;
+            margin-bottom: 10px;
+            /* Плавна зміна тексту */
+            transition: opacity 0.4s ease;
+        }
+
+        .author {
+            font-size: 0.85rem;
+            color: #8C7E6E;
+            margin-top: 10px;
         }
         
         .icon {
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 15px;
-            display: block;
+            opacity: 0.7;
         }
 
         .next-btn {
             position: absolute;
             bottom: 15px;
-            right: 20px;
-            font-size: 0.75rem;
+            right: 15px;
+            font-size: 0.7rem;
             color: #4A3F35;
-            opacity: 0.4; /* Робимо її ледь помітною */
+            opacity: 0.4;
             cursor: pointer;
             text-decoration: underline;
-            transition: opacity 0.3s;
             background: none;
             border: none;
             font-family: inherit;
+            padding: 10px; /* Більша зона для натискання на мобільному */
         }
-        
-        .next-btn:hover {
-            opacity: 0.9; /* Проявляється при наведенні */
+
+        /* Адаптація для маленьких екранів (мобільних) */
+        @media (max-width: 600px) {
+            #quote-text {
+                font-size: 1.1rem; /* Трохи менший шрифт */
+                max-width: 100%;
+            }
+            .next-btn {
+                bottom: 5px;
+                right: 5px;
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -65,10 +83,11 @@
 
 <div class="quote-card">
     <span class="icon">✨</span>
-    <p id="quote-text">Loading daily inspiration...</p>
-    <small>— Dolpo Tulku Rinpoche</small>
+    <p id="quote-text">Loading...</p>
+    <div class="author">— Dolpo Tulku Rinpoche</div>
+    <button class="next-btn" onclick="getNextQuote()">Next inspiration →</button>
 </div>
-<button class="next-btn" onclick="getNextQuote()">Next inspiration →</button>
+
 <script>
     const citations = [
         "We need to generate compassion for all beings. Just for the fact that they are alive and feel joy and sorrow, they are adequate objects of compassion.",
@@ -87,7 +106,7 @@
     ];
 
     let currentIndex = 0;
-    
+
     function updateQuote() {
         const now = new Date();
         const start = new Date(now.getFullYear(), 0, 0);
@@ -98,20 +117,23 @@
         currentIndex = dayOfYear % citations.length;
         renderQuote();
     }
-    
-    // Окрема функція для відображення, щоб викликати її при кліку
+
     function renderQuote() {
-        document.getElementById('quote-text').innerText = citations[currentIndex];
+        const textEl = document.getElementById('quote-text');
+        textEl.style.opacity = 0; // Анімація зникнення
+        
+        setTimeout(() => {
+            textEl.innerText = citations[currentIndex];
+            textEl.style.opacity = 1; // Анімація появи
+        }, 200);
     }
-    
-    // Функція для кнопки "Next"
+
     function getNextQuote() {
         currentIndex = (currentIndex + 1) % citations.length;
         renderQuote();
     }
-    
-    updateQuote();
 
+    updateQuote();
 </script>
 </body>
 </html>
